@@ -2,7 +2,6 @@ const { userModel } = require('../models');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { key } = require('../config');
-const { getUserByEmail } = require('../models/user.models');
 
 const userLogin = async (req, res) => {
     const { email, password } = req.body;
@@ -34,6 +33,25 @@ const userLogin = async (req, res) => {
     }
 };
 
+const userLogout = (req, res) => {
+    const { id, email, role } = req.user;
+    const now = Math.floor(Date.now() / 1000);
+    const iat = now;
+
+    const token = jwt.sign(
+        { user: { id, email, role }, iat },
+        key.privateKey,
+        {
+        expiresIn: now - iat,
+        algorithm: 'RS256',
+        }
+    );
+    res.status(200).json({ 
+        message: 'Logout successful',
+        token: token 
+    });
+  };
+
 const registerUser = async (req, res) => {
     const { email, gender, password, role } = req.body;
     try {
@@ -58,5 +76,6 @@ const registerUser = async (req, res) => {
 
 module.exports = {
     userLogin,
-    registerUser
+    registerUser,
+    userLogout
 }
