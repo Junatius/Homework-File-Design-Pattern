@@ -21,7 +21,7 @@ const deleteMovieById = async (req, res) => {
       const deletedMovie = await movieModel.deleteMovieById(id);
   
       if (!deletedMovie) {
-        return res.status(404).json({ message: 'Movie not found' });
+        return res.status(404).json({ message: 'Not Found' });
       }
   
       res.json({ message: `Movie ${deletedMovie.title} deleted successfully` });
@@ -50,6 +50,10 @@ const createMovie = async (req, res) => {
 const updateMovieById = async (req, res) => {
     const id = req.params.id;
     const data = req.body;
+
+    if (!data || Object.keys(data).length === 0) {
+        return res.status(400).json({ message: 'No input data provided' });
+    }
     try {
         const updateMovie = await movieModel.updateMovieById(id, data);
 
@@ -57,7 +61,7 @@ const updateMovieById = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        return res.json({ message: 'Movie updated successfully' });
+        return res.json({ message: `Movie with title ${updateMovie.title} updated successfully` });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
