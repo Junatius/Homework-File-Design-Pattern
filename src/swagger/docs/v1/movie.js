@@ -1,6 +1,0 @@
-/**
- * @swagger
- *  /auth/login:
- *      post:
- *          
- */
