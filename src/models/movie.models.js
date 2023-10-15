@@ -47,7 +47,7 @@ const updateMovieById = async (Id, updateData) => {
         const result = await client.query(`
             UPDATE movies SET ${updateQuery} WHERE id = ${Id} RETURNING title;
         `, values);
-        return result.rows;
+        return result.rows[0];
     } finally {
         client.release();
     }
@@ -59,7 +59,7 @@ const deleteMovieById = async (Id) => {
         const result = await client.query(`
             DELETE FROM movies WHERE id = ${Id} RETURNING title;
         `);
-        return result.rows;
+        return result.rows[0];
     } finally {
         client.release();
     }
