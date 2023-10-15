@@ -58,7 +58,7 @@ const updateMovieById = async (req, res) => {
         const updateMovie = await movieModel.updateMovieById(id, data);
 
         if (!updateMovie) {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({ message: 'Movie not found' });
         }
 
         return res.json({ message: `Movie with title ${updateMovie.title} updated successfully` });
