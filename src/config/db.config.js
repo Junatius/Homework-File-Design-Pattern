@@ -8,8 +8,8 @@ const pool = new Pool({
     port: process.env.DB_PORT,
 });
 
-const API = process.env.API || 3000;
-const PORT = process.env.PORT || "api/v1";
+const PORT = process.env.PORT_APP || 3000;
+const API = process.env.APP_PATH || "api/v1";
 
 module.exports = {
     pool,
