@@ -9,6 +9,10 @@ authentication. Pastikan yang hanya bisa mengakses API hanyalah user yang terdaf
 
 # Guide for JWS Token
 1. Membuat file private.pem terlebih dahulu untuk signing token (Jika Windows maka run pada Git Bash)
-`openssl genpkey -algorithm RSA -out private.pem`
+```
+openssl genpkey -algorithm RSA -out private.pem
+```
 2. Lalu untuk kedua menggunakan public.pem untuk memverifikasi token
-`openssl rsa -pubout -in private.pem -out public.pem`
+```
+openssl rsa -pubout -in private.pem -out public.pem
+```
