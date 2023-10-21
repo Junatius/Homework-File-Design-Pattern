@@ -85,7 +85,7 @@
  *                 example: Engineer
  *     responses:
  *       200:
- *         description: Successfully Login
+ *         description: Successfully Registered
  *         content:
  *           application/json:
  *             schema:
