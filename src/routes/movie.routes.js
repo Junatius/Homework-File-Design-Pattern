@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { movieControllers } = require('../controllers');
-const { authMiddleware } = require('../middlewares');
+const { authMiddleware, uploadMiddleware } = require('../middlewares');
 const { validator } = require('../middlewares')
 
 const router = Router();
@@ -15,7 +15,7 @@ router.get(
 );
 
 router.post(
-    '/create',
+    '/',
     authMiddleware.authenticateUser,
     authMiddleware.checkUserRole('Administrator'),
     requirements.createValidator,
@@ -39,6 +39,16 @@ router.delete(
     (req, res) => {
         movieControllers.deleteMovieById
     }
+);
+
+router.post(
+    '/:id/upload',
+    authMiddleware.authenticateUser,
+    authMiddleware.checkUserRole('Administrator'),
+    uploadMiddleware,
+    requirements.uploadRequirements,
+    validate,
+    movieControllers.uploadFile
 );
 
 module.exports = router;

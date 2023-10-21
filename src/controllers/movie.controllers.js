@@ -68,9 +68,22 @@ const updateMovieById = async (req, res) => {
     }
 };
 
+const uploadFile = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const file = req.file;
+        const updateResult = await movieModel.uploadFile(id, { photo: file.path });
+        res.json({ message: `File uploaded for ${updateResult.title} movie` });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
 module.exports = {
     getAllMovies,
     deleteMovieById,
     updateMovieById,
-    createMovie
+    createMovie,
+    uploadFile,
 }

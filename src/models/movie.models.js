@@ -65,10 +65,25 @@ const deleteMovieById = async (Id) => {
     }
 };
 
+const uploadFile = async (Id, updateData) => {
+    const client = await db.pool.connect();
+    try {
+        const values = [];
+        const updateQuery = generateUpdateQuery(updateData, values);
+        const result = await client.query(`
+            UPDATE movies SET ${updateQuery} WHERE id = $${values.length + 1} RETURNING title, photo;
+        `, [...values, Id]);
+        return result.rows[0];
+    } finally {
+        client.release();
+    }
+};
+
 module.exports = {
     getAllMovies,
     createMovie,
     updateMovieById,
-    deleteMovieById
+    deleteMovieById,
+    uploadFile,
 }
 

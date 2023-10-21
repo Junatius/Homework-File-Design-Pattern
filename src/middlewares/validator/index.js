@@ -1,10 +1,12 @@
 const { validationResult } = require('express-validator');
 const userRequirements = require('./user.requirement');
 const movieRequirements = require('./movie.requirement');
+const uploadRequirements = require('./upload.requirements');
 
 const requirements = {
     ...userRequirements,
-    ...movieRequirements
+    ...movieRequirements,
+    uploadRequirements
 }
 
 const validate = (req, res, next) => {
